@@ -13,22 +13,23 @@ import com.klef.soa.entity.Doctor;
 import com.klef.soa.service.DoctorService;
 
 @RestController
-public class DoctorController {
+public class DoctorController 
+{
 	@Autowired
 	private DoctorService service;
 	@GetMapping("/")
 	public String demo() {
-		return "Spring Boot Project";
-		
+		return "Spring Boot project";
 	}
 	@PostMapping("/add")
 	public ResponseEntity<Doctor> adddoctor(@RequestBody Doctor d) {
-		Doctor doctor = service.addDoctor(d);
+		Doctor doctor=service.addDoctor(d);
 		return ResponseEntity.status(201).body(doctor);
 	}
 	@GetMapping("/displayall")
 	public ResponseEntity<List<Doctor>> displayalldoctors() {
 		List<Doctor> doctors=service.DisplayAllDoctors();
 		return ResponseEntity.status(200).body(doctors);
+		
 	}
 }
