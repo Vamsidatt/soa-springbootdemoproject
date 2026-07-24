@@ -23,7 +23,7 @@ public class Doctor {
 	@Column(name="dname", length = 100,nullable = false)
 	private String name;
 	@Column(name="dgender",length=20,nullable = false)
-	private int gender;
+	private String gender;
 	@Column(nullable = false)
 	private String specialization;
 	@Column(name="dsalary",nullable=false)
@@ -56,10 +56,10 @@ public class Doctor {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getGender() {
+	public String getGender() {
 		return gender;
 	}
-	public void setGender(int gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 	public String getSpecialization() {
