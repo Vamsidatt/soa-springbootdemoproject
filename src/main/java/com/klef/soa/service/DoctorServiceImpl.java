@@ -67,5 +67,11 @@ public class DoctorServiceImpl implements DoctorService {
 		// TODO Auto-generated method stub
 		return repo.findByGender(gender);
 	}
+
+	@Override
+	public Long doctorCount() {
+		// TODO Auto-generated method stub
+		return repo.count();
+	}
 	
 }
