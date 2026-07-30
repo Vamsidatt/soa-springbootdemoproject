@@ -22,84 +22,77 @@ import com.klef.soa.service.DoctorService;
 @RequestMapping("/doctor")
 public class DoctorController
 {
-  @Autowired
-  private DoctorService service;
+ @Autowired
+ private DoctorService service;
 
-  @GetMapping("/")
-  public String demo()
+ @GetMapping("/")
+ public String demo()
+ {
+  return "Spring Boot Project";
+ }
+
+ @PostMapping("/add")
+ public ResponseEntity<Doctor> addDoctor(@RequestBody Doctor d)
+ {
+  Doctor doctor = service.addDoctor(d);
+  return ResponseEntity.status(201).body(doctor);
+ }
+
+ @GetMapping("/displayall")
+ public ResponseEntity<List<Doctor>> displayAllDoctors()
+ {
+  List<Doctor> doctors = service.DisplayAllDoctors();
+  return ResponseEntity.status(200).body(doctors);
+ }
+
+ @GetMapping("/display")
+ public ResponseEntity<?> displayDoctorById(@RequestParam Long id)
+ {
+  Doctor doctor = service.diaplayDoctorById(id);
+
+  if (doctor != null)
   {
-    return "Spring Boot Project";
+   return ResponseEntity.status(200).body(doctor);
   }
-
-  // Add Doctor
-  @PostMapping("/add")
-  public ResponseEntity<Doctor> addDoctor(@RequestBody Doctor d)
+  else
   {
-    Doctor doctor = service.addDoctor(d);
-    return ResponseEntity.status(201).body(doctor);
+   return ResponseEntity.status(404).body("Doctor ID Not Found");
   }
+ }
 
-  // Display All Doctors
-  @GetMapping("/displayall")
-  public ResponseEntity<List<Doctor>> displayAllDoctors()
+ @PutMapping("/update")
+ public ResponseEntity<?> updateDoctor(@RequestBody Doctor doctor)
+ {
+  Doctor d = service.updatDoctor(doctor);
+
+  if (d != null)
   {
-    List<Doctor> doctors = service.DisplayAllDoctors();
-    return ResponseEntity.status(200).body(doctors);
+   return ResponseEntity.ok(d);
   }
-
-  // Display Doctor By ID
-  @GetMapping("/display")
-  public ResponseEntity<?> displayDoctorById(@RequestParam Long id)
+  else
   {
-    Doctor doctor = service.diaplayDoctorById(id);
-
-    if (doctor != null)
-    {
-      return ResponseEntity.status(200).body(doctor);
-    }
-    else
-    {
-      return ResponseEntity.status(404).body("Doctor ID Not Found");
-    }
+   return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Doctor ID Not Found");
   }
+ }
 
-  // Update Doctor
-  @PutMapping("/update")
-  public ResponseEntity<?> updateDoctor(@RequestBody Doctor doctor)
-  {
-    Doctor d = service.updatDoctor(doctor);
+ @DeleteMapping("/delete/{id}")
+ public ResponseEntity<String> deleteDoctorById(@PathVariable Long id)
+ {
+  String message = service.deleteDoctorById(id);
+  return new ResponseEntity<>(message, HttpStatus.OK);
+ }
 
-    if (d != null)
-    {
-      return ResponseEntity.ok(d);
-    }
-    else
-    {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Doctor ID Not Found");
-    }
-  }
-
-  // Delete Doctor By ID
-  @DeleteMapping("/delete/{id}")
-  public ResponseEntity<String> deleteDoctorById(@PathVariable Long id)
-  {
-    String message = service.deleteDoctorById(id);
-    return new ResponseEntity<>(message, HttpStatus.OK);
-  }
-
-  // Display Doctors By Gender
-  @GetMapping("/displaybygender/{gender}")
-  public ResponseEntity<List<Doctor>> displayDoctorsByGender(@PathVariable String gender)
-  {
-    List<Doctor> doctors = service.DisplayDoctorByGender(gender);
-    return ResponseEntity.status(200).body(doctors);
-  }
-  //  Doctor Count
-  @GetMapping("/count")
-  public ResponseEntity<String> doctorcount()
-  {
-     Long count = service.doctorCount();
-     String msg = "Total Doctors="+count;
-     return ResponseEntity.ok(msg);
-  }
+ @GetMapping("/displaybygender/{gender}")
+ public ResponseEntity<List<Doctor>> displayDoctorsByGender(@PathVariable String gender)
+ {
+  List<Doctor> doctors = service.DisplayDoctorByGender(gender);
+  return ResponseEntity.status(200).body(doctors);
+ }
+ 
+ @GetMapping("/count")
+ public ResponseEntity<String> doctorcount() {
+	 Long count = service.doctorCount();
+	 String msg = "Total Doctors=" +count;
+	 return ResponseEntity.ok(msg);
+ }
 }

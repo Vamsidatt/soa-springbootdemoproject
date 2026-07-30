@@ -10,13 +10,14 @@ import com.klef.soa.entity.Doctor;
 import com.klef.soa.repository.DoctorRepository;
 @Service
 public class DoctorServiceImpl implements DoctorService {
+	
 	@Autowired
 	private DoctorRepository repo;
 	
 	
 
 	@Override
-	public Doctor addDoctor(Doctor d) {
+	public Doctor addDoctor(Doctor d) 	{
 		// TODO Auto-generated method stub
 		return repo.save(d);
 		

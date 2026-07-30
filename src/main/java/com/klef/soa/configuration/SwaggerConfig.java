@@ -8,11 +8,10 @@ import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 
 @Configuration
-public class SwaggerConfig
-{
+public class SwaggerConfig {
+
     @Bean
-    public OpenAPI customOpenAPI()
-    {
+    public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
                         .title("Doctor Service API")
